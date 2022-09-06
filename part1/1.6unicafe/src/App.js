@@ -18,7 +18,11 @@ const Stats=({good,netural,bad})=>{
   const all=good+netural+bad;
   const average=all===0?0:(good-bad)/all;
   const positive=all===0?0:good/all*100;
-  console.log(good,netural,bad,all);
+  if(all===0){
+    return(
+      <h1>No FeedBack Given</h1>
+    )
+  }
   return(
     <div>
       <h1>statistics</h1>
