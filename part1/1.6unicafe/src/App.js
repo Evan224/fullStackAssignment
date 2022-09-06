@@ -12,7 +12,11 @@ const Button=({handleClick,text})=>{
   )
 }
 
-
+const StatisticLine=({text,value})=>{
+  return(
+    <p>{text} {value}</p>
+  )
+}
 
 const Stats=({good,netural,bad})=>{
   const all=good+netural+bad;
@@ -26,13 +30,11 @@ const Stats=({good,netural,bad})=>{
   return(
     <div>
       <h1>statistics</h1>
-      <p>good {good}</p>
-      <p>neutral {netural}</p>
-      <p>bad {bad}</p>
-      <p>all {all}</p>
+      <StatisticLine text="good" value={good}/>
+      <StatisticLine text="neutral" value={netural}/>
+      <StatisticLine text="all" value={all}/>
       <p>average {average}</p>
       <p>positive {positive}</p>
-
     </div>
   )
 }
