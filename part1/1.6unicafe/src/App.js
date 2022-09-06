@@ -29,12 +29,20 @@ const App = () => {
   }
 
   const Stats=({good,netural,bad})=>{
+    const all=good+netural+bad;
+    const average=all===0?0:(good-bad)/all;
+    const positive=all===0?0:good/all*100;
+    console.log(good,netural,bad,all);
     return(
       <div>
         <h1>statistics</h1>
         <p>good {good}</p>
         <p>neutral {neutral}</p>
         <p>bad {bad}</p>
+        <p>all {all}</p>
+        <p>average {average}</p>
+        <p>positive {positive}</p>
+
       </div>
     )
   }
@@ -43,7 +51,7 @@ const App = () => {
     <>
       <Header/>
       <Buttons/>
-      <Stats good={good} neutral={neutral} bad={bad}/>
+      <Stats good={good} netural={neutral} bad={bad}/>
     </>
   )
 }
