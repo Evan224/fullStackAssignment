@@ -17,14 +17,22 @@ const Country=({country})=>{
   )
 }
 
-const Countries=({countries,filter})=>{
+const Countries=({countries,filter,handleClickShow})=>{
   const filteredCountries=countries.filter(country=>country.name.common.toLowerCase().includes(filter.toLowerCase()));
   if(filteredCountries.length>10){
     return <p>Too many matches, specify another filter</p>
   }else if(filteredCountries.length===1){
     return filteredCountries.map(country=><Country key={country.name.common} country={country}/>)
   }else{
-    return filteredCountries.map(country=><p key={country.name.common}>{country.name.common}</p>)
+    return filteredCountries.map(country=>{
+     
+      return(
+        <div key={country.name.common}>
+          <span>{country.name.common}</span>
+          <button onClick={(event)=>handleClickShow(event,country.name.common)} >Show</button>
+        </div>
+      )
+    })
   }
 }
 
@@ -45,12 +53,17 @@ const App=()=>{
     setFilter(event.target.value);
   }
 
+  const handleClickShow=(event,name)=>{
+    event.preventDefault();
+    setFilter(name);
+  }
+
   return(
     <div>
       <form>
         find countries <input value={filter} onChange={handleClickInput}/>
       </form>
-      <Countries countries={countries} filter={filter}/>
+      <Countries countries={countries} filter={filter} handleClickShow={handleClickShow}/>
     </div>
   )
 }
