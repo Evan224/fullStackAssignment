@@ -1,10 +1,19 @@
-const Persons = ({ persons, filter }) => {
+const Persons = ({ persons, filter,handleDeletePerson }) => {
+
 
   return (
     <div>
       {persons.map(person => {
         if(person.name.includes(filter)){
-          return <p key={person.name}>{person.name} {person.number}</p>
+          console.log(person)
+          return (
+            <div key={person.id}>
+            <span >{person.name} {person.number}</span>
+            <button onClick={()=>handleDeletePerson(person.id)}>Delete</button>
+            </div>
+          )
+        }else{
+          return null;
         }
       })}
     </div>

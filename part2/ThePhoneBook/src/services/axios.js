@@ -12,4 +12,9 @@ const getAll=()=>{
     return request.then(response=>response.data)
 }
 
-export default {addPost,getAll}
+const deletePerson=(id)=>{
+    const request=axios.delete(`${BASE_URL}/${id}`)
+    return request.then(response=>response.data)
+}
+
+export {addPost,getAll,deletePerson}
