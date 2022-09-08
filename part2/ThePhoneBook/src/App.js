@@ -2,7 +2,7 @@ import { useState ,useEffect} from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
-import {getAll,addPost,deletePerson} from './services/axios.js';
+import {getAll,addPost,deletePerson,updatePerson} from './services/axios.js';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -28,7 +28,7 @@ const App = () => {
   const handleDelete=(id)=>{
     console.log("delete",id)
     deletePerson(id).then(response=>{
-      console.log(response)
+      console.log(response,'deleted')
       setPersons(persons.filter(person=>person.id!==id))
     })
   }
@@ -40,7 +40,17 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault();
     if(checkName(newName)) {
-      alert(`${newName} is already added to phonebook`)
+      const choose=window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`);
+      if(choose){
+        const newPerson=persons.find(person=>person.name===newName);
+        const changedPerson={...newPerson,number:newNumber};
+        updatePerson(newPerson.id,changedPerson).then(response=>{
+          console.log(response,'updated')
+          setPersons(persons.map(person=>person.id!==response.id?person:response))
+        })
+      }else{
+
+      }
       setNewName('')
       setNewNumber('')
     }else{
