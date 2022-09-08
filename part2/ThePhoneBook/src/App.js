@@ -11,6 +11,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
   const [message, setMessage] = useState(null)
+  const [messageType, setMessageType] = useState(null);
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
@@ -30,9 +31,21 @@ const App = () => {
   const handleDelete=(id)=>{
     console.log("delete",id)
     deletePerson(id).then(response=>{
-      console.log(response,'deleted')
+      setMessage(`${persons.find(person=>person.id===id).name} has already been deleted`)
+      setMessageType('success')
+      setTimeout(()=>{
+        setMessage(null)
+        setMessageType(null)
+      },5000)
 
       setPersons(persons.filter(person=>person.id!==id))
+    }).catch(error=>{
+      setMessage(`Information of ${persons.find(person=>person.id===id).name} has already been removed from server`)
+      setMessageType('error')
+      setTimeout(()=>{
+        setMessage(null)
+        setMessageType(null)
+      },5000)
     })
   }
 
@@ -51,8 +64,17 @@ const App = () => {
           console.log(response,'updated')
           setPersons(persons.map(person=>person.id!==response.id?person:response))
           setMessage(`Changed ${newPerson.name}'s phonenumber to ${newNumber}`)
+          setMessageType('success');
           setTimeout(() => {
             setMessage(null)
+            setMessageType(null);
+          }, 5000)
+        }).catch(error=>{
+          setMessage(`Information of ${newPerson.name} has already been removed from server`)
+          setMessageType('error');
+          setTimeout(() => {
+            setMessage(null)
+            setMessageType(null);
           }, 5000)
         })
       }else{
@@ -67,8 +89,10 @@ const App = () => {
       }
       addPost(nameObject).then(responseData=>{
         setMessage(`Added ${responseData.name}`)
+        setMessageType('success');
         setTimeout(() => {
           setMessage(null)
+          setMessageType(null);
         }, 5000)
         setPersons(persons.concat(responseData))
         setNewName('')
@@ -87,7 +111,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={message} type="success"/>
+      <Notification message={message} type={messageType}/>
       <Filter filter={filter} handleFilterChange={handleFilterChange}/>
       <h2>add a new</h2>
       <PersonForm newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} addPerson={addPerson}/>
