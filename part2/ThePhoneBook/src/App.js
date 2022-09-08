@@ -3,12 +3,14 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import {getAll,addPost,deletePerson,updatePerson} from './services/axios.js';
+import Notification from './components/Notification';
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [message, setMessage] = useState(null)
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
@@ -29,6 +31,7 @@ const App = () => {
     console.log("delete",id)
     deletePerson(id).then(response=>{
       console.log(response,'deleted')
+
       setPersons(persons.filter(person=>person.id!==id))
     })
   }
@@ -47,6 +50,10 @@ const App = () => {
         updatePerson(newPerson.id,changedPerson).then(response=>{
           console.log(response,'updated')
           setPersons(persons.map(person=>person.id!==response.id?person:response))
+          setMessage(`Changed ${newPerson.name}'s phonenumber to ${newNumber}`)
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
         })
       }else{
 
@@ -59,6 +66,10 @@ const App = () => {
         number: newNumber,
       }
       addPost(nameObject).then(responseData=>{
+        setMessage(`Added ${responseData.name}`)
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
         setPersons(persons.concat(responseData))
         setNewName('')
         setNewNumber('')
@@ -76,6 +87,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} type="success"/>
       <Filter filter={filter} handleFilterChange={handleFilterChange}/>
       <h2>add a new</h2>
       <PersonForm newName={newName} handleNameChange={handleNameChange} newNumber={newNumber} handleNumberChange={handleNumberChange} addPerson={addPerson}/>
