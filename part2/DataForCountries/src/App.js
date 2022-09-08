@@ -1,7 +1,6 @@
 import { useState ,useEffect} from 'react'
 import axios from 'axios';
 
-//https://api.openweathermap.org/data/2.5/weather?lat=20&lon=20&appid=01fc7fa56b665a4a247f65cebd764264
 const Weather=({weather})=>{
   return(
     <div>

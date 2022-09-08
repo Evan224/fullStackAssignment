@@ -33,15 +33,22 @@ const App = () => {
     event.preventDefault();
     if(checkName(newName)) {
       alert(`${newName} is already added to phonebook`)
+      setNewName('')
+      setNewNumber('')
     }else{
       const nameObject = {
         name: newName,
         number: newNumber,
       }
       setPersons(persons.concat(nameObject));
+      axios
+      .post('http://localhost:3001/persons', nameObject)
+      .then(response => {
+        setPersons(persons.concat(response.data))
+        setNewName('')
+        setNewNumber('')
+      })
     }
-    setNewName('')
-    setNewNumber('')
   }
 
   useEffect(() => {
