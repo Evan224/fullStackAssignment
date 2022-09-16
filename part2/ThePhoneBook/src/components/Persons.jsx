@@ -5,7 +5,7 @@ const Persons = ({ persons, filter,handleDeletePerson }) => {
     <div>
       {persons.map(person => {
         if(person.name.includes(filter)){
-          console.log(person)
+          // console.log(person)
           return (
             <div key={person.id}>
             <span >{person.name} {person.number}</span>

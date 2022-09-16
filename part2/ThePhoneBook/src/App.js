@@ -14,22 +14,22 @@ const App = () => {
   const [messageType, setMessageType] = useState(null);
 
   const handleNameChange = (event) => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     setNewName(event.target.value);
   }
 
   const handleNumberChange = (event) => {
-    console.log(event.target.value)
+    // console.log(event.target.value)
     setNewNumber(event.target.value);
   }
 
   const handleFilterChange=(event)=>{
-    console.log(event.target.value)
+    // console.log(event.target.value)
     setFilter(event.target.value);
   }
 
   const handleDelete=(id)=>{
-    console.log("delete",id)
+    // console.log("delete",id)
     deletePerson(id).then(response=>{
       setMessage(`${persons.find(person=>person.id===id).name} has already been deleted`)
       setMessageType('success')
@@ -60,6 +60,7 @@ const App = () => {
       if(choose){
         const newPerson=persons.find(person=>person.name===newName);
         const changedPerson={...newPerson,number:newNumber};
+        // console.log(changedPerson,'and',newPerson);
         updatePerson(newPerson.id,changedPerson).then(response=>{
           console.log(response,'updated')
           setPersons(persons.map(person=>person.id!==response.id?person:response))
@@ -70,6 +71,7 @@ const App = () => {
             setMessageType(null);
           }, 5000)
         }).catch(error=>{
+          // console.log(error,'error');
           setMessage(`Information of ${newPerson.name} has already been removed from server`)
           setMessageType('error');
           setTimeout(() => {
@@ -97,13 +99,21 @@ const App = () => {
         setPersons(persons.concat(responseData))
         setNewName('')
         setNewNumber('')
+      }).catch(error=>{
+        // console.log(error.response.data.error);
+        setMessage(error.response.data.error)
+        setMessageType('error');
+        setTimeout(() => {
+          setMessage(null)
+          setMessageType(null);
+        }, 5000)
       })
     }
   }
 
   useEffect(() => {
     getAll().then(responseData=>{
-      console.log(responseData)
+      // console.log(responseData)
       setPersons(responseData)
     });
   }, [])

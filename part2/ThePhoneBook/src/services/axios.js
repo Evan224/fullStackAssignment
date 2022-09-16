@@ -1,6 +1,17 @@
 import axios from 'axios';
 
-const BASE_URL="http://localhost:3001/persons"
+// const BASE_URL="http://localhost:3001/api/persons"
+// const BASE_URL="https://cool-bush-2690.fly.dev/api/persons"
+// const BASE_URL="/api/persons"
+let BASE_URL="";
+let env=process.env.NODE_ENV;
+if(env==="development"){
+    BASE_URL="https://cool-bush-2690.fly.dev/api/persons"
+    // BASE_URL="http://localhost:3001/api/persons"
+}else if(env==="production"){
+    BASE_URL="/api/persons"
+}
+console.log(BASE_URL,'baseURL');
 
 const addPost=(newObject)=>{
     const request=axios.post(BASE_URL,newObject)
@@ -19,6 +30,7 @@ const deletePerson=(id)=>{
 
 const updatePerson=(id,newPerson)=>{
     const request=axios.put(`${BASE_URL}/${id}`,newPerson)
+    // console.log(request);
     return request.then(response=>response.data)
 }
 

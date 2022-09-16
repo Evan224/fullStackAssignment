@@ -19,7 +19,7 @@ const Country=({country})=>{
     axios
       .get(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api_key}`)
       .then(response=>{
-        console.log(weather);
+        // console.log(weather);
         setWeather(response.data);
       })
   },[lat,lon,api_key])
