@@ -61,5 +61,18 @@ describe('Note app', function() {
 
       cy.contains('This is the new title you like').should('not.exist')
     })
+
+    // it('most liked blog is first', function() {
+    //   cy.get('#title').type('This is the most title you like')
+    //   cy.get('#author').type('by cypress!')
+    //   cy.get('#username').type('username!!!')
+    //   cy.get('#create-button').click()
+    //   cy.get('.blog').filter(':contains("This is the most title you like")').find('button').click()
+    //   for(let i=0;i<200;i++){
+    //     cy.contains('like').click()
+    //   }
+    //   cy.get('.blog').eq(0).contains('This is the most title you like')
+    // })
   })
+
 })
