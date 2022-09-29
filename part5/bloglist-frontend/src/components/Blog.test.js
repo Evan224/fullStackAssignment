@@ -14,16 +14,25 @@ test('renders content',async () => {
 
   const mockHandler = jest.fn()
 
-  const { container }=render(<Blog blog={blog} />)
+  const { container }=render(<Blog blog={blog} likehandler={mockHandler}/>)
 
   //   screen.debug(container)
   const user = userEvent.setup()
   const div = container.querySelector('.blog')
   const button = screen.getByText('view')
-  screen.debug(button)
+  //   screen.debug(button)
   await user.click(button)
   expect(div).toHaveTextContent('test title')
   expect(div).toHaveTextContent('test author')
   expect(div).toHaveTextContent('test url')
+
+  const likeButton=screen.getByText('like')
+  //   screen.debug(likeButton)
+  await user.click(likeButton)
+  await user.click(likeButton)
+
+
+
+  expect(mockHandler.mock.calls).toHaveLength(2)
 //   expect(div).not.toHaveTextContent('test url')
 })

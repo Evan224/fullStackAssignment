@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import blogService from '../services/blogs'
 
-const Blog = ({ blog,refresh }) => {
+const Blog = ({ blog,refresh,likehandler }) => {
   // console.log(blog,'blogblogblog')
   const [newblog,setBlog]=useState(blog)
   const [showAll,setShowAll]=useState(false)
@@ -26,9 +26,22 @@ const Blog = ({ blog,refresh }) => {
   }
 
   const addLike=async () => {
-    const newBlog={ ...newblog,likes:newblog.likes+1 }
-    await blogService.update(blog.id,newBlog)
-    setBlog(newBlog)
+    if(likehandler){
+      likehandler()
+    }
+    // await console.log('---------')
+    try{
+      const newBlog={...newblog,likes:newblog.likes+1}
+      await blogService.update(newBlog.id,newBlog)
+      setBlog(newBlog)
+    }catch{
+      console.log('error')
+    }
+    // const newBlog={ ...newblog,likes:newblog.likes+1 }
+    // await blogService.update(blog.id,newBlog)
+    // setBlog(newBlog)
+    // likehandler()
+
   }
 
 
