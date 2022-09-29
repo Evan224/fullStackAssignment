@@ -4,16 +4,27 @@ describe('Note app', function() {
     cy.visit('http://localhost:3000')
   })
 
-  it('front page can be opened', function() {
+  it('Login form is shown', function() {
     cy.visit('http://localhost:3000')
     cy.contains('Log in to application')
     // cy.contains('Note app, Department of Computer Science, University of Helsinki 2022')
   })
 
-  it('user can login', function () {
-    cy.get('#username').type('evan222')
-    cy.get('#password').type('password2')
-    cy.get('#login-button').click()
+  describe('Login',function() {
+    it('succeeds with correct credentials', function() {
+      // ...
+      cy.get('#username').type('evan222')
+      cy.get('#password').type('password2')
+      cy.get('#login-button').click()
+    })
+
+    it('fails with wrong credentials', function() {
+      // ...
+      cy.get('#username').type('evan222')
+      cy.get('#password').type('password22')
+      cy.get('#login-button').click()
+      cy.contains('wrong username or password')
+    })
   })
 
   describe('when logged in', function() {
