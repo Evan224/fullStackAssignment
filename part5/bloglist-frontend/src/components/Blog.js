@@ -56,7 +56,7 @@ const Blog = ({ blog,refresh,likehandler }) => {
           <div>{newblog.url}</div>
           <div>likes {newblog.likes} <button onClick={addLike}>like</button></div>
           <div>{newblog.user && newblog.user.name }</div>
-          <button onClick={deleteBlog}>DELETE</button>
+          <button id="delete-button" onClick={deleteBlog}>DELETE</button>
         </div>) }
     </div>
 

@@ -34,7 +34,7 @@ describe('Note app', function() {
       cy.get('#login-button').click()
     })
 
-    it('a new note can be created', function() {
+    it('a blog can be created', function() {
       cy.contains('create').click()
       cy.get('#title').type('This is the new title you like')
       cy.get('#author').type('by cypress!')
@@ -42,6 +42,24 @@ describe('Note app', function() {
       cy.get('#create-button').click()
       // cy.contains('save').click()
       cy.contains('This is the new title you like')
+    })
+
+    it('a blog can be liked', function() {
+      cy.contains('view').click()
+      cy.contains('like').click()
+      cy.contains('likes 1')
+    })
+
+    it('a blog can be deleted', function() {
+      cy.get('.blog').filter(':contains("This is the new title you like")').find('button')
+        .click({ multiple: true })
+
+      cy.get('.blog').filter(':contains("This is the new title you like")').contains('DELETE')
+        .click({ multiple: true })
+
+      // cy.contains('DELETE').click()
+
+      cy.contains('This is the new title you like').should('not.exist')
     })
   })
 })
