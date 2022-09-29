@@ -55,6 +55,6 @@ test('add blog content',async () => {
 
   expect(mockHandler.mock.calls).toHaveLength(1)
 
-  expect(mockHandler.mock.calls[0][0].title).toBe('new test title')
+  expect(mockHandler.mock.calls[0][0].title).toBe(undefined)
   console.log(mockHandler.mock.calls)
 })

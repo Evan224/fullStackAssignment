@@ -9,21 +9,20 @@ const NewBlog=({ addCallback,blog }) => {
 
   const createBlog=async (event) => {
     event.preventDefault()
-    let blogObject={
+    const blogObject={
       title:title,
       author:author,
       url:url,
     }
-    await console.log(blog)
+    let response={}
     try{
-       const response=await blogService.create(blogObject)
+      response=await blogService.create(blogObject)
 
-    }catch{
-      console.log('error')
+    }catch(exception){
+      console.log(exception)
     }
-    addCallback({title:blog.title})
     // console.log(response)
-    // addCallback(response)
+    addCallback(response)
     setTitle('')
     setAuthor('')
     setUrl('')
@@ -34,6 +33,7 @@ const NewBlog=({ addCallback,blog }) => {
       <div>
             title
         <input
+          id="title"
           type="text"
           value={title}
           name="Username"
@@ -43,6 +43,7 @@ const NewBlog=({ addCallback,blog }) => {
       <div>
             author
         <input
+          id="author"
           type="text"
           value={author}
           name="Username"
@@ -52,13 +53,14 @@ const NewBlog=({ addCallback,blog }) => {
       <div>
             url
         <input
+          id="username"
           type="text"
           value={url}
           name="Username"
           onChange={({ target }) => setUrl(target.value)}
         />
       </div>
-      <button onClick={createBlog}>create</button>
+      <button id="create-button" onClick={createBlog}>create</button>
     </form>
   )
 }
