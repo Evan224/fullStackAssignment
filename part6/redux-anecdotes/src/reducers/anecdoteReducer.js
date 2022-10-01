@@ -39,6 +39,10 @@ const reducer = (state = initialState, action) => {
   return state
 }
 
+const orderState = (state) => {
+  return state.sort((a,b) => b.votes - a.votes)
+}
+
 export const addVote = (id) => {
   return {
     type: 'VOTE',
