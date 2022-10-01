@@ -21,25 +21,6 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-// const anecdoteReducer = (state = initialState, action) => {
-//   console.log('state now: ', state)
-//   console.log('action', action)
-//   if(action.type === 'VOTE') {
-//     const id = action.data.id
-//     const current = state.find(a => a.id === id)
-//     const changedAnecdote = {
-//       ...current,
-//       votes: current.votes + 1
-//     }
-//     return state.map(current =>
-//       current.id !== id ? current : changedAnecdote
-//     )
-//   }else if(action.type === 'NEW_ANECDOTE') {
-//     return state.concat(action.data)
-//   }
-
-//   return state
-// }
 
 const anecdoteSlice = createSlice({
   name: 'anecdotes',
