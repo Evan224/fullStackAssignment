@@ -9,6 +9,7 @@ const AnecdoteList = () => {
           return b.votes - a.votes
         })
       })
+    console.log(anecdotes,'anecdotes')
     const filter=useSelector(({ filter }) => filter)
     const dispatch = useDispatch()
   

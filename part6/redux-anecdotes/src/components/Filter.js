@@ -6,7 +6,6 @@ const Filter = () => {
     const handleChange = (event) => {
         
         event.preventDefault()
-        // event.target.anecdote.value = ''
         const content=event.target.value;
         dispatch(setFilter(content))
     }
