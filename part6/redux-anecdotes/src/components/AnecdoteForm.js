@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 
 const AnecdoteForm = (props) => {
-    // const dispatch = useDispatch()
+
     const add = async (event) => {
         event.preventDefault()
         const content = event.target.anecdote.value
