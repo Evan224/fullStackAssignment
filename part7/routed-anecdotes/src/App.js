@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Routes,Route,Link
 } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
+// import {useNavigate}
+import { useParams, useNavigate} from 'react-router-dom'
 
 const Menu = () => {
   const padding = {
@@ -59,9 +60,9 @@ const CreateNew = (props) => {
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
-
-
+  const navigate=useNavigate()
   const handleSubmit = (e) => {
+
     e.preventDefault()
     props.addNew({
       content,
@@ -69,6 +70,8 @@ const CreateNew = (props) => {
       info,
       votes: 0
     })
+    navigate('/')
+    
   }
 
   return (
