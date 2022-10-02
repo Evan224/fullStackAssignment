@@ -17,11 +17,7 @@ const AnecdoteList = () => {
     const vote =async (id) => {
       const anecdote = anecdotes.find(a => a.id === id)
       dispatch(voteAnecdote(id))
-      dispatch(setNotification(`You voted '${anecdote.content}'`))
-      // dispatch(setNotification(`You voted '${anecdotes.find(a => a.id === id).content}'`))
-      setTimeout(() => {
-        dispatch(hideNotification())
-      }, 5000)
+      dispatch(setNotification(`You voted '${anecdote.content}'`,5))
     }
 
     return (
