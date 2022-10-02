@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react'
-import blogService from '../services/blogs'
+import {  useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { deleteBlogs,updateBlogs,initializeBlogs } from '../reducers/blogReducer'
 
-const Blog = ({ blog,refresh,likehandler }) => {
-  // console.log(blog,'blogblogblog')
-  const [newblog,setBlog]=useState(blog)
+const Blog = ({ likehandler,blog }) => {
   const [showAll,setShowAll]=useState(false)
-  useEffect(() => {
-    setBlog(blog)
-  },[blog])
+  const dispatch=useDispatch()
+  // useEffect(() => {
+  //   dispatch(initializeBlogs())
+  // },[])
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -18,44 +18,35 @@ const Blog = ({ blog,refresh,likehandler }) => {
 
   const deleteBlog=async () => {
     if(window.confirm(`Are you sure to delete ${blog.title}?`)){
-      await blogService.remove(blog.id)
-      // setBlog(null)
-      refresh()
+      dispatch(deleteBlogs(blog.id))
+      dispatch(initializeBlogs())
     }
-
   }
 
   const addLike=async () => {
     if(likehandler){
       likehandler()
     }
-    // await console.log('---------')
     try{
-      const newBlog={ ...newblog,likes:newblog.likes+1 }
-      await blogService.update(newBlog.id,newBlog)
-      setBlog(newBlog)
+      const newBlog={ ...blog,likes:blog.likes+1 }
+      dispatch(updateBlogs(blog.id,newBlog))
+      dispatch(initializeBlogs())
     }catch(e) {
       console.log('error')
     }
-    // const newBlog={ ...newblog,likes:newblog.likes+1 }
-    // await blogService.update(blog.id,newBlog)
-    // setBlog(newBlog)
-    // likehandler()
 
   }
-
-
 
   return(
     <div style={blogStyle} className="blog">
       {!showAll? (   <div >
-        <p>{newblog.title}</p> <p>{newblog.author}</p> <button onClick={() => setShowAll(!showAll)}>view</button>
+        <p>{blog.title}</p> <p>{blog.author}</p> <button onClick={() => setShowAll(!showAll)}>view</button>
       </div> )
         : ( <div>
-          <div>{newblog.title} {newblog.author} <button onClick={() => setShowAll(!showAll)}>hide</button></div>
-          <div>{newblog.url}</div>
-          <div>likes {newblog.likes} <button onClick={addLike}>like</button></div>
-          <div>{newblog.user && newblog.user.name }</div>
+          <div>{blog.title} {blog.author} <button onClick={() => setShowAll(!showAll)}>hide</button></div>
+          <div>{blog.url}</div>
+          <div>likes {blog.likes} <button onClick={addLike}>like</button></div>
+          <div>{blog.user && blog.user.name }</div>
           <button id="delete-button" onClick={deleteBlog}>DELETE</button>
         </div>) }
     </div>

@@ -1,11 +1,14 @@
 import { useState } from 'react'
 // import loginService from '../services/login'
-import blogService from '../services/blogs'
+// import blogService from '../services/blogs'
+import { useDispatch } from 'react-redux'
+import { createBlogs } from '../reducers/blogReducer'
 
-const NewBlog=({ addCallback }) => {
+const NewBlog=() => {
   const [title,setTitle]=useState('')
   const [author,setAuthor]=useState('')
   const [url,setUrl]=useState('')
+  const dispatch=useDispatch()
 
   const createBlog=async (event) => {
     event.preventDefault()
@@ -14,14 +17,14 @@ const NewBlog=({ addCallback }) => {
       author:author,
       url:url,
     }
-    let response={}
+    // let response={}
     try{
-      response=await blogService.create(blogObject)
+      await dispatch(createBlogs(blogObject))
     }catch(exception){
       console.log(exception)
     }
     // console.log(response)
-    addCallback(response)
+    // addCallback(response)
     setTitle('')
     setAuthor('')
     setUrl('')
