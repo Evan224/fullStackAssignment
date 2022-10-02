@@ -5,6 +5,8 @@ import LoginPage from './components/Login'
 import Notification from './components/Notification'
 import NewBlog from './components/NewBlog'
 import Togglable from './components/Togglable'
+import { useSelector,useDispatch } from 'react-redux'
+import { setNotification } from './reducers/notificationReducer'
 
 const sortWay=(a,b) => {
   if(!a.likes){
@@ -15,11 +17,12 @@ const sortWay=(a,b) => {
   return b.likes-a.likes
 }
 
+
 const App = () => {
+  const { message,type }=useSelector(state => state.notification)
+  const dispatch=useDispatch()
   const [blogs, setBlogs] = useState([])
   const [user,setUser]=useState(null)
-  const [message,setMessage]=useState(null)
-  const [type,setType]=useState(null)
 
   useEffect(() => {
     localStorage.getItem('login') && setUser(JSON.parse(localStorage.getItem('login')))
@@ -49,22 +52,12 @@ const App = () => {
   const loginCallback=(user) => {
     setUser(user)
     blogService.setToken(user.token)
-    setMessage('logged successfully!!!')
-    setType('info')
-    setTimeout(() => {
-      setMessage(null)
-      setType(null)
-    }, 5000)
+    dispatch(setNotification({ message:'logged successfully!!!',type:'info' },5))
   }
 
   const addCallback=(blog) => {
     const { title,author }=blog
-    setMessage(`a new blog ${title} by ${author} added`)
-    setType('info')
-    setTimeout(() => {
-      setMessage(null)
-      setType(null)
-    }, 5000)
+    dispatch(setNotification({ message:`a new blog ${title} by ${author} added`,type:'info' },5))
 
     blogService.getAll().then(blogs => {
       blogs=blogs.sort(sortWay)

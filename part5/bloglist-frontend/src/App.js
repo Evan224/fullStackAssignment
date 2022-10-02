@@ -38,7 +38,6 @@ const App = () => {
       setBlogs( blogs )
     }
     )
-    // console.log(blogs,'12312312321312blogs')
   }, [])
 
   const logoutCallback=() => {

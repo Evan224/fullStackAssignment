@@ -17,7 +17,6 @@ const NewBlog=({ addCallback }) => {
     let response={}
     try{
       response=await blogService.create(blogObject)
-
     }catch(exception){
       console.log(exception)
     }

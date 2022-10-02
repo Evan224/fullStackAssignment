@@ -2,15 +2,17 @@ import { useState } from 'react'
 import loginService from '../services/login'
 import blogService from '../services/blogs'
 import Notification from './Notification'
+import { useDispatch,useSelector } from 'react-redux'
+import { setNotification } from '../reducers/notificationReducer'
 
 
 const LoginPage=({ loginCallback }) => {
+  const { message,type }=useSelector(state => state.notification)
+  const dispatch=useDispatch()
 
   const [username,setUsername]=useState('')
   const [password,setPassword]=useState('')
   // const [errorMessage,setErrorMessage]=useState(null)
-  const [message,setMessage]=useState(null)
-  const [type,setType]=useState(null)
 
 
   const LoginCallback=async (event) => {
@@ -26,12 +28,7 @@ const LoginPage=({ loginCallback }) => {
       setUsername('')
       setPassword('')
     } catch (exception) {
-      setMessage('wrong username or password')
-      setType('error')
-      setTimeout(() => {
-        setMessage(null)
-        setType(null)
-      }, 5000)
+      dispatch(setNotification({ message:'wrong username or password',type:'error' },5))
     }
   }
 
