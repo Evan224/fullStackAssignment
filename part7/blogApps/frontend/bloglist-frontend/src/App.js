@@ -9,14 +9,6 @@ import { useSelector,useDispatch } from 'react-redux'
 import { setNotification } from './reducers/notificationReducer'
 import { initializeBlogs } from './reducers/blogReducer'
 
-// const sortWay=(a,b) => {
-//   if(!a.likes){
-//     a.likes=0
-//   }else if(!b.likes){
-//     b.likes=0
-//   }
-//   return b.likes-a.likes
-// }
 
 
 const App = () => {
@@ -52,12 +44,6 @@ const App = () => {
     dispatch(setNotification({ message:'logged successfully!!!',type:'info' },5))
   }
 
-  // const addCallback=(blog) => {
-  //   const { title,author }=blog
-  //   dispatch(setNotification({ message:`a new blog ${title} by ${author} added`,type:'info' },5))
-
-  //   dispatch(initializeBlogs())
-  // }
 
   if(!blogs){
     return null

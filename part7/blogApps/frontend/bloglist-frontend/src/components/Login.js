@@ -12,12 +12,10 @@ const LoginPage=({ loginCallback }) => {
 
   const [username,setUsername]=useState('')
   const [password,setPassword]=useState('')
-  // const [errorMessage,setErrorMessage]=useState(null)
 
 
   const LoginCallback=async (event) => {
     event.preventDefault()
-    // console.log("LoginCallback")
     try {
       const user = await loginService.login({
         username, password,
